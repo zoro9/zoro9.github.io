@@ -83,14 +83,12 @@
 
 
 
-<meta name="description" content="suitaqvba">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
 <meta property="og:url" content="http://yoursite.com/tags/index.html">
 <meta property="og:site_name" content="Zoro的个人博客">
-<meta property="og:description" content="suitaqvba">
 <meta property="article:published_time" content="2020-06-21T16:03:36.000Z">
-<meta property="article:modified_time" content="2020-06-21T16:03:36.149Z">
+<meta property="article:modified_time" content="2020-06-21T22:26:23.887Z">
 <meta property="article:author" content="Zoro">
 <meta name="twitter:card" content="summary">
 
@@ -137,6 +135,10 @@
 
 
 
+
+
+<!--pjax：防止跳转页面音乐暂停-->
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script> 
 
 <meta name="generator" content="Hexo 4.2.1"></head>
 
@@ -468,7 +470,27 @@
             </div>
           
 
-          
+          <!-- require APlayer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <!-- require MetingJS-->
+    <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> 
+	<!--网易云-->   
+    <div class="aplayer" 
+      data-id="4916164702" 
+      data-server="netease" 
+      data-type="playlist" 
+      data-fixed="false" 
+      data-autoplay="false" 
+      data-list-folded="true"
+      data-mutex="true"
+      data-order="random" 
+      data-loop="all"
+      data-volume="0.4" 
+      data-theme="#FADFA3" 
+      date-preload="auto" > 
+    </div>
+
         </div>
       </section>
 
