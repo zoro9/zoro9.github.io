@@ -8,5 +8,59 @@
       <categories>
         <category>其他</category>
       </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MarkDown教程</title>
+    <url>/2020/06/21/business/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="转自菜鸟教程"><a href="#转自菜鸟教程" class="headerlink" title="转自菜鸟教程"></a>转自菜鸟教程</h3><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p># 一级标题<br>## 二级标题<br>### 三级标题<br>#### 四级标题<br>##### 五级标题<br>###### 六级标题<br>显示效果</p>
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><p>段落没有特殊的格式，直接编写文字就好，段落的换行是使用两个以上空格加上回车。<br>AAAAAA<br>BBBBBB<br>末尾添加两个空格或使用空行换行</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>Markdown 可以使用以下几种字体：<br>*斜体文本*<br>_斜体文本_<br>**粗体文本**<br>__粗体文本__<br>***粗斜体文本***<br>___粗斜体文本___</p>
+<p>显示效果如下</p>
+<p><em>斜体文本</em><br><em>斜体文本</em><br><strong>粗体文本</strong><br><strong>粗体文本</strong><br><strong><em>粗斜体文本</em></strong><br><strong><em>粗斜体文本</em></strong></p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>* 第一项<br>* 第二项<br>* 第三项</p>
+<p>+ 第一项<br>+ 第二项<br>+ 第三项</p>
+<p>- 第一项<br>- 第二项<br>- 第三项</p>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<p>有序列表使用数字并加上 . 号来表示</p>
+<p>1. 第一项<br>2. 第二项<br>3. 第三项<br>显示效果</p>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ol>
+<h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><p>***</p>
+<p>* * *</p>
+<p>*****</p>
+<p>- - -</p>
+<p>-———<br>显示效果</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
   </entry>
 </search>
