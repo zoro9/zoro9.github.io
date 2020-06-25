@@ -44,8 +44,13 @@
 <hr>
 <hr>
 <h2 id="Markdown-代码"><a href="#Markdown-代码" class="headerlink" title="Markdown 代码"></a>Markdown 代码</h2><p>如果是段落上的一个函数或片段的代码可以用反引号把它包起来（`），例如：<br>`printf()`函数<br>显示效果：<br><code>printf()</code> 函数</p>
-<h3 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h3><p>代码区块使用 4 个空格或者一个制表符（Tab 键）。<br>‘-‘代表空格<br>—-&lt;?php<br>    echo ‘hello’;<br>    function test(){<br>        echo ‘test’;<br>    }<br>显示效果<br>    &lt;?php<br>    echo ‘hello’;<br>    function test(){<br>        echo ‘test’;<br>    }</p>
-<p>你也可以用 ``` 包裹一段代码，并指定一种语言（也可以不指定）：<br>```javascript<br>$(document).ready(function () {<br>    alert(‘RUNOOB’);<br>});<br>```<br>显示效果    </p>
+<h3 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h3><p>代码区块使用 4 个空格或者一个制表符（Tab 键）。<br>‘-‘代表空格<br>—-&lt;?php<br>    echo ‘hello’;<br>    function test(){<br>        echo ‘test’;<br>    }    </p>
+<p>显示效果</p>
+<pre><code>&lt;?php
+echo &apos;hello&apos;;
+function test(){
+    echo &apos;test&apos;;
+}</code></pre><p>你也可以用 ``` 包裹一段代码，并指定一种语言（也可以不指定）：<br>```javascript<br>$(document).ready(function () {<br>    alert(‘RUNOOB’);<br>});<br>```<br>显示效果    </p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">'RUNOOB'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 
