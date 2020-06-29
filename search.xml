@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>测试文章标题</title>
+    <url>/2020/06/21/2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>测试文章内容</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo+next主题优化</title>
+    <url>/2020/06/25/next/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="主页文章添加边框阴影效果"><a href="#主页文章添加边框阴影效果" class="headerlink" title="主页文章添加边框阴影效果"></a>主页文章添加边框阴影效果</h3><p>打开 <code>themes/next/source/css/_custom/custom.styl</code> ,向里面加代码:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 主页文章添加阴影效果</span><br><span class="line">.post &#123;</span><br><span class="line">   margin-top: 0px;</span><br><span class="line">   margin-bottom: 60px;</span><br><span class="line">   padding: 25px;</span><br><span class="line">   -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);</span><br><span class="line">   -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>    
+<h3 id="修改文章间分割线-自己修改的无效"><a href="#修改文章间分割线-自己修改的无效" class="headerlink" title="修改文章间分割线(自己修改的无效)"></a>修改文章间分割线(自己修改的无效)</h3><p>打开 <code>themes/next/source/css/_common/components/post/post-eof.styl</code> ,修改：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.posts-expand &#123;</span><br><span class="line">  .post-eof &#123;</span><br><span class="line">    display: block;</span><br><span class="line">  &#x2F;&#x2F;  margin: $post-eof-margin-top auto $post-eof-margin-bottom;  </span><br><span class="line">    width: 0%; &#x2F;&#x2F;分割线长度</span><br><span class="line">    height: 0px; &#x2F;&#x2F; 分割线高度</span><br><span class="line">    background: $grey-light;</span><br><span class="line">    text-align: center;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="博文置顶"><a href="#博文置顶" class="headerlink" title="博文置顶"></a>博文置顶</h3><p>打开 Hexo 站点下 node_modules/hexo-generator-index/lib/generator.js 文件。代码全部替换为：(next 5.1以后主题已自带此功能)    </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#39;use strict&#39;;</span><br><span class="line">var pagination &#x3D; require(&#39;hexo-pagination&#39;);</span><br><span class="line">module.exports &#x3D; function(locals)&#123;</span><br><span class="line">  var config &#x3D; this.config;</span><br><span class="line">  var posts &#x3D; locals.posts;</span><br><span class="line">    posts.data &#x3D; posts.data.sort(function(a, b) &#123;</span><br><span class="line">        if(a.top &amp;&amp; b.top) &#123; &#x2F;&#x2F; 两篇文章top都有定义</span><br><span class="line">            if(a.top &#x3D;&#x3D; b.top) return b.date - a.date; &#x2F;&#x2F; 若top值一样则按照文章日期降序排</span><br><span class="line">            else return b.top - a.top; &#x2F;&#x2F; 否则按照top值降序排</span><br><span class="line">        &#125;</span><br><span class="line">        else if(a.top &amp;&amp; !b.top) &#123; &#x2F;&#x2F; 以下是只有一篇文章top有定义，那么将有top的排在前面（这里用异或操作居然不行233）</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(!a.top &amp;&amp; b.top) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else return b.date - a.date; &#x2F;&#x2F; 都没定义按照文章日期降序排</span><br><span class="line">    &#125;);</span><br><span class="line">  var paginationDir &#x3D; config.pagination_dir || &#39;page&#39;;</span><br><span class="line">  return pagination(&#39;&#39;, posts, &#123;</span><br><span class="line">    perPage: config.index_generator.per_page,</span><br><span class="line">    layout: [&#39;index&#39;, &#39;archive&#39;],</span><br><span class="line">    format: paginationDir + &#39;&#x2F;%d&#x2F;&#39;,</span><br><span class="line">    data: &#123;</span><br><span class="line">      __index: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>打开文章添加top字段,设置数值，数值越大文章越靠前：    </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout: layout</span><br><span class="line">title: 标签1</span><br><span class="line">date: 2017-08-18 15:41:18</span><br><span class="line">tags: 标签1</span><br><span class="line">top: 100</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h3 id="统计功能，统计功能-显示文章字数统计-阅读时长-总字数"><a href="#统计功能，统计功能-显示文章字数统计-阅读时长-总字数" class="headerlink" title="统计功能，统计功能,显示文章字数统计,阅读时长,总字数"></a>统计功能，统计功能,显示文章字数统计,阅读时长,总字数</h3><p>在站点的根目录下：<br><code>$ npm i --save hexo-wordcount</code><br>打开 themes/next/_config.yml ，搜索关键字 post_wordcount：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Post wordcount display settings</span><br><span class="line"># Dependencies: https:&#x2F;&#x2F;github.com&#x2F;willin&#x2F;hexo-wordcount</span><br><span class="line">post_wordcount:</span><br><span class="line">  item_text: true</span><br><span class="line">  #字数统计</span><br><span class="line">  wordcount: true</span><br><span class="line">  #预览时间</span><br><span class="line">  min2read: true</span><br><span class="line">  #总字数,显示在页面底部</span><br><span class="line">  totalcount: true</span><br><span class="line">  separated_meta: true</span><br></pre></td></tr></table></figure>
+
+<h3 id="网站标题栏背景颜色"><a href="#网站标题栏背景颜色" class="headerlink" title="网站标题栏背景颜色"></a>网站标题栏背景颜色</h3><p>当使用Pisces主题时，网站标题栏背景颜色是黑色的，感觉不好看，在 <code>next/source/css/_custom</code> 目录下面专门提供了 custom.styl 供我们自定义样式的，因此也可以在 custom.styl 里面添加：    </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Custom styles.</span><br><span class="line">.site-meta &#123;</span><br><span class="line">  background: $blue; &#x2F;&#x2F;修改为自己喜欢的颜色</span><br><span class="line">&#125;	</span><br><span class="line">&#96;&#96;&#96;	</span><br><span class="line">或者修改源码，在 &#96;source&#x2F;css&#x2F;_schemes&#x2F;Pisces&#x2F;_brand.styl&#96; 中修改：</span><br></pre></td></tr></table></figure>
+<p>.site-meta {<br>  padding: 20px 0;<br>  color: white;<br>  background: $blue-dodger; //修改为自己喜欢的颜色</p>
+<p>  +tablet() {<br>    box-shadow: 0 0 16px rgba(0,0,0,0.5);<br>  }<br>  +mobile() {<br>    box-shadow: 0 0 16px rgba(0,0,0,0.5);<br>  }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 修改内容区域的宽度	</span><br><span class="line">我们用Next主题是发现在电脑上阅读文章时内容两边留的空白较多，这样在浏览代码块时经常要滚动滚动条才能阅读完整，体验不是很好，下面提供修改内容区域的宽度的方法。 NexT 对于内容的宽度的设定如下：	</span><br><span class="line">* 700px，当屏幕宽度 &lt; 1600px</span><br><span class="line">* 900px，当屏幕宽度 &gt;&#x3D; 1600px</span><br><span class="line">* 移动设备下，宽度自适应</span><br><span class="line">如果你需要修改内容的宽度，同样需要编辑样式文件。 在Mist和Muse风格可以用下面的方法：</span><br><span class="line"></span><br><span class="line">编辑主题的 &#96;source&#x2F;css&#x2F;_variables&#x2F;custom.styl&#96; 文件，新增变量：</span><br><span class="line">&#96;&#96;&#96;	</span><br><span class="line">&#x2F;&#x2F; 修改成你期望的宽度</span><br><span class="line">$content-desktop &#x3D; 700px</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 当视窗超过 1600px 后的宽度</span><br><span class="line">$content-desktop-large &#x3D; 900px</span><br><span class="line">&#96;&#96;&#96;	</span><br><span class="line">当你使用Pisces风格时可以用下面的方法：</span><br></pre></td></tr></table></figure>
+<p>header{ width: 90%; }<br>.container .main-inner { width: 90%; }<br>.content-wrap { width: calc(100% - 260px); }</p>
+<pre><code></code></pre>]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MarkDown教程</title>
     <url>/2020/06/21/business/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="转自菜鸟教程"><a href="#转自菜鸟教程" class="headerlink" title="转自菜鸟教程"></a>转自菜鸟教程</h3><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p># 一级标题<br>## 二级标题<br>### 三级标题<br>#### 四级标题<br>##### 五级标题<br>###### 六级标题</p>
@@ -64,49 +107,6 @@ function test(){
 
 
 
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo+next主题优化</title>
-    <url>/2020/06/25/next/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="主页文章添加边框阴影效果"><a href="#主页文章添加边框阴影效果" class="headerlink" title="主页文章添加边框阴影效果"></a>主页文章添加边框阴影效果</h3><p>打开 <code>themes/next/source/css/_custom/custom.styl</code> ,向里面加代码:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 主页文章添加阴影效果</span><br><span class="line">.post &#123;</span><br><span class="line">   margin-top: 0px;</span><br><span class="line">   margin-bottom: 60px;</span><br><span class="line">   padding: 25px;</span><br><span class="line">   -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);</span><br><span class="line">   -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>    
-<h3 id="修改文章间分割线-自己修改的无效"><a href="#修改文章间分割线-自己修改的无效" class="headerlink" title="修改文章间分割线(自己修改的无效)"></a>修改文章间分割线(自己修改的无效)</h3><p>打开 <code>themes/next/source/css/_common/components/post/post-eof.styl</code> ,修改：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.posts-expand &#123;</span><br><span class="line">  .post-eof &#123;</span><br><span class="line">    display: block;</span><br><span class="line">  &#x2F;&#x2F;  margin: $post-eof-margin-top auto $post-eof-margin-bottom;  </span><br><span class="line">    width: 0%; &#x2F;&#x2F;分割线长度</span><br><span class="line">    height: 0px; &#x2F;&#x2F; 分割线高度</span><br><span class="line">    background: $grey-light;</span><br><span class="line">    text-align: center;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="博文置顶"><a href="#博文置顶" class="headerlink" title="博文置顶"></a>博文置顶</h3><p>打开 Hexo 站点下 node_modules/hexo-generator-index/lib/generator.js 文件。代码全部替换为：(next 5.1以后主题已自带此功能)    </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#39;use strict&#39;;</span><br><span class="line">var pagination &#x3D; require(&#39;hexo-pagination&#39;);</span><br><span class="line">module.exports &#x3D; function(locals)&#123;</span><br><span class="line">  var config &#x3D; this.config;</span><br><span class="line">  var posts &#x3D; locals.posts;</span><br><span class="line">    posts.data &#x3D; posts.data.sort(function(a, b) &#123;</span><br><span class="line">        if(a.top &amp;&amp; b.top) &#123; &#x2F;&#x2F; 两篇文章top都有定义</span><br><span class="line">            if(a.top &#x3D;&#x3D; b.top) return b.date - a.date; &#x2F;&#x2F; 若top值一样则按照文章日期降序排</span><br><span class="line">            else return b.top - a.top; &#x2F;&#x2F; 否则按照top值降序排</span><br><span class="line">        &#125;</span><br><span class="line">        else if(a.top &amp;&amp; !b.top) &#123; &#x2F;&#x2F; 以下是只有一篇文章top有定义，那么将有top的排在前面（这里用异或操作居然不行233）</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(!a.top &amp;&amp; b.top) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else return b.date - a.date; &#x2F;&#x2F; 都没定义按照文章日期降序排</span><br><span class="line">    &#125;);</span><br><span class="line">  var paginationDir &#x3D; config.pagination_dir || &#39;page&#39;;</span><br><span class="line">  return pagination(&#39;&#39;, posts, &#123;</span><br><span class="line">    perPage: config.index_generator.per_page,</span><br><span class="line">    layout: [&#39;index&#39;, &#39;archive&#39;],</span><br><span class="line">    format: paginationDir + &#39;&#x2F;%d&#x2F;&#39;,</span><br><span class="line">    data: &#123;</span><br><span class="line">      __index: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>打开文章添加top字段,设置数值，数值越大文章越靠前：    </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout: layout</span><br><span class="line">title: 标签1</span><br><span class="line">date: 2017-08-18 15:41:18</span><br><span class="line">tags: 标签1</span><br><span class="line">top: 100</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<h3 id="统计功能，统计功能-显示文章字数统计-阅读时长-总字数"><a href="#统计功能，统计功能-显示文章字数统计-阅读时长-总字数" class="headerlink" title="统计功能，统计功能,显示文章字数统计,阅读时长,总字数"></a>统计功能，统计功能,显示文章字数统计,阅读时长,总字数</h3><p>在站点的根目录下：<br><code>$ npm i --save hexo-wordcount</code><br>打开 themes/next/_config.yml ，搜索关键字 post_wordcount：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Post wordcount display settings</span><br><span class="line"># Dependencies: https:&#x2F;&#x2F;github.com&#x2F;willin&#x2F;hexo-wordcount</span><br><span class="line">post_wordcount:</span><br><span class="line">  item_text: true</span><br><span class="line">  #字数统计</span><br><span class="line">  wordcount: true</span><br><span class="line">  #预览时间</span><br><span class="line">  min2read: true</span><br><span class="line">  #总字数,显示在页面底部</span><br><span class="line">  totalcount: true</span><br><span class="line">  separated_meta: true</span><br></pre></td></tr></table></figure>
-
-<h3 id="网站标题栏背景颜色"><a href="#网站标题栏背景颜色" class="headerlink" title="网站标题栏背景颜色"></a>网站标题栏背景颜色</h3><p>当使用Pisces主题时，网站标题栏背景颜色是黑色的，感觉不好看，在 <code>next/source/css/_custom</code> 目录下面专门提供了 custom.styl 供我们自定义样式的，因此也可以在 custom.styl 里面添加：    </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Custom styles.</span><br><span class="line">.site-meta &#123;</span><br><span class="line">  background: $blue; &#x2F;&#x2F;修改为自己喜欢的颜色</span><br><span class="line">&#125;	</span><br><span class="line">&#96;&#96;&#96;	</span><br><span class="line">或者修改源码，在 &#96;source&#x2F;css&#x2F;_schemes&#x2F;Pisces&#x2F;_brand.styl&#96; 中修改：</span><br></pre></td></tr></table></figure>
-<p>.site-meta {<br>  padding: 20px 0;<br>  color: white;<br>  background: $blue-dodger; //修改为自己喜欢的颜色</p>
-<p>  +tablet() {<br>    box-shadow: 0 0 16px rgba(0,0,0,0.5);<br>  }<br>  +mobile() {<br>    box-shadow: 0 0 16px rgba(0,0,0,0.5);<br>  }<br>}</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 修改内容区域的宽度	</span><br><span class="line">我们用Next主题是发现在电脑上阅读文章时内容两边留的空白较多，这样在浏览代码块时经常要滚动滚动条才能阅读完整，体验不是很好，下面提供修改内容区域的宽度的方法。 NexT 对于内容的宽度的设定如下：	</span><br><span class="line">* 700px，当屏幕宽度 &lt; 1600px</span><br><span class="line">* 900px，当屏幕宽度 &gt;&#x3D; 1600px</span><br><span class="line">* 移动设备下，宽度自适应</span><br><span class="line">如果你需要修改内容的宽度，同样需要编辑样式文件。 在Mist和Muse风格可以用下面的方法：</span><br><span class="line"></span><br><span class="line">编辑主题的 &#96;source&#x2F;css&#x2F;_variables&#x2F;custom.styl&#96; 文件，新增变量：</span><br><span class="line">&#96;&#96;&#96;	</span><br><span class="line">&#x2F;&#x2F; 修改成你期望的宽度</span><br><span class="line">$content-desktop &#x3D; 700px</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 当视窗超过 1600px 后的宽度</span><br><span class="line">$content-desktop-large &#x3D; 900px</span><br><span class="line">&#96;&#96;&#96;	</span><br><span class="line">当你使用Pisces风格时可以用下面的方法：</span><br></pre></td></tr></table></figure>
-<p>header{ width: 90%; }<br>.container .main-inner { width: 90%; }<br>.content-wrap { width: calc(100% - 260px); }</p>
-<pre><code></code></pre>]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>测试文章标题</title>
-    <url>/2020/06/21/2/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>测试文章内容</p>
 ]]></content>
       <categories>
         <category>其他</category>
