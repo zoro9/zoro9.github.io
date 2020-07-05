@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Zoro的个人博客</title>
+  
+  <subtitle>blog</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-06-25T14:28:00.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Zoro</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo+next主题优化</title>
+    <link href="http://yoursite.com/2020/06/25/next/"/>
+    <id>http://yoursite.com/2020/06/25/next/</id>
+    <published>2020-06-25T14:28:00.000Z</published>
+    <updated>2020-06-25T14:28:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;主页文章添加边框阴影效果&quot;&gt;&lt;a href=&quot;#主页文章添加边框阴影效果&quot; class=&quot;headerlink&quot; title=&quot;主页文章添加边框阴影效果&quot;&gt;&lt;/a&gt;主页文章添加边框阴影效果&lt;/h3&gt;&lt;p&gt;打开 &lt;code&gt;themes/next/source/css/_custom/custom.styl&lt;/code&gt; ,向里面加代码:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;hljs angelscript&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// 主页文章添加阴影效果&lt;/span&gt;
+.post &amp;#123;
+   margin-top: &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;px;
+   margin-bottom: &lt;span class=&quot;hljs-number&quot;&gt;60&lt;/span&gt;px;
+   padding: &lt;span class=&quot;hljs-number&quot;&gt;25&lt;/span&gt;px;
+   -webkit-box-shadow: &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;5&lt;/span&gt;px rgba(&lt;span class=&quot;hljs-number&quot;&gt;202&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;203&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;203&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;.5&lt;/span&gt;);
+   -moz-box-shadow: &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;5&lt;/span&gt;px rgba(&lt;span class=&quot;hljs-number&quot;&gt;202&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;203&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;204&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;.5&lt;/span&gt;);
+&amp;#125;&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+      <category term="其他" scheme="http://yoursite.com/tags/%E5%85%B6%E4%BB%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MarkDown教程</title>
+    <link href="http://yoursite.com/2020/06/21/business/"/>
+    <id>http://yoursite.com/2020/06/21/business/</id>
+    <published>2020-06-22T03:54:47.000Z</published>
+    <updated>2020-06-22T03:15:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;转自菜鸟教程&quot;&gt;&lt;a href=&quot;#转自菜鸟教程&quot; class=&quot;headerlink&quot; title=&quot;转自菜鸟教程&quot;&gt;&lt;/a&gt;转自菜鸟教程&lt;/h3&gt;&lt;h2 id=&quot;标题&quot;&gt;&lt;a href=&quot;#标题&quot; class=&quot;headerlink&quot; title=&quot;标题&quot;&gt;&lt;/a&gt;标题&lt;/h2&gt;&lt;p&gt;# 一级标题&lt;br&gt;## 二级标题&lt;br&gt;### 三级标题&lt;br&gt;#### 四级标题&lt;br&gt;##### 五级标题&lt;br&gt;###### 六级标题&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+      <category term="其他" scheme="http://yoursite.com/tags/%E5%85%B6%E4%BB%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>测试文章标题</title>
+    <link href="http://yoursite.com/2020/06/21/2/"/>
+    <id>http://yoursite.com/2020/06/21/2/</id>
+    <published>2020-06-21T11:19:47.000Z</published>
+    <updated>2020-06-23T00:18:54.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+    
+      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+      <category term="其他" scheme="http://yoursite.com/tags/%E5%85%B6%E4%BB%96/"/>
+    
+  </entry>
+  
+</feed>
