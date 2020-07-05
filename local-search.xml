@@ -5,74 +5,12 @@
   
   <entry>
     <title>hexo+next主题优化</title>
-    <link href="/2020/06/25/next/"/>
-    <url>/2020/06/25/next/</url>
+    <link href="/2020/07/04/111/"/>
+    <url>/2020/07/04/111/</url>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="主页文章添加边框阴影效果"><a href="#主页文章添加边框阴影效果" class="headerlink" title="主页文章添加边框阴影效果"></a>主页文章添加边框阴影效果</h3><p>打开 <code>themes/next/source/css/_custom/custom.styl</code> ,向里面加代码:</p><pre><code class="hljs angelscript"><span class="hljs-comment">// 主页文章添加阴影效果</span>.post &#123;   margin-top: <span class="hljs-number">0</span>px;   margin-bottom: <span class="hljs-number">60</span>px;   padding: <span class="hljs-number">25</span>px;   -webkit-box-shadow: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">5</span>px rgba(<span class="hljs-number">202</span>, <span class="hljs-number">203</span>, <span class="hljs-number">203</span>, <span class="hljs-number">.5</span>);   -moz-box-shadow: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">5</span>px rgba(<span class="hljs-number">202</span>, <span class="hljs-number">203</span>, <span class="hljs-number">204</span>, <span class="hljs-number">.5</span>);&#125;</code></pre><a id="more"></a>    <h3 id="修改文章间分割线-自己修改的无效"><a href="#修改文章间分割线-自己修改的无效" class="headerlink" title="修改文章间分割线(自己修改的无效)"></a>修改文章间分割线(自己修改的无效)</h3><p>打开 <code>themes/next/source/css/_common/components/post/post-eof.styl</code> ,修改：</p><pre><code class="hljs scss"><span class="hljs-selector-class">.posts-expand</span> &#123;  <span class="hljs-selector-class">.post-eof</span> &#123;    <span class="hljs-attribute">display</span>: block;  <span class="hljs-comment">//  margin: $post-eof-margin-top auto $post-eof-margin-bottom;  </span>    <span class="hljs-attribute">width</span>: <span class="hljs-number">0%</span>; <span class="hljs-comment">//分割线长度</span>    <span class="hljs-attribute">height</span>: <span class="hljs-number">0px</span>; <span class="hljs-comment">// 分割线高度</span>    <span class="hljs-attribute">background</span>: <span class="hljs-variable">$grey-light</span>;    <span class="hljs-attribute">text-align</span>: center;  &#125;&#125;</code></pre><h3 id="博文置顶"><a href="#博文置顶" class="headerlink" title="博文置顶"></a>博文置顶</h3><p>打开 Hexo 站点下 node_modules/hexo-generator-index/lib/generator.js 文件。代码全部替换为：(next 5.1以后主题已自带此功能)    </p><pre><code class="hljs javascript"><span class="hljs-meta">'use strict'</span>;<span class="hljs-keyword">var</span> pagination = <span class="hljs-built_in">require</span>(<span class="hljs-string">'hexo-pagination'</span>);<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">locals</span>)</span>&#123;  <span class="hljs-keyword">var</span> config = <span class="hljs-keyword">this</span>.config;  <span class="hljs-keyword">var</span> posts = locals.posts;    posts.data = posts.data.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>&#123;        <span class="hljs-keyword">if</span>(a.top &amp;&amp; b.top) &#123; <span class="hljs-comment">// 两篇文章top都有定义</span>            <span class="hljs-keyword">if</span>(a.top == b.top) <span class="hljs-keyword">return</span> b.date - a.date; <span class="hljs-comment">// 若top值一样则按照文章日期降序排</span>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.top - a.top; <span class="hljs-comment">// 否则按照top值降序排</span>        &#125;        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a.top &amp;&amp; !b.top) &#123; <span class="hljs-comment">// 以下是只有一篇文章top有定义，那么将有top的排在前面（这里用异或操作居然不行233）</span>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;        &#125;        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!a.top &amp;&amp; b.top) &#123;            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;        &#125;        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.date - a.date; <span class="hljs-comment">// 都没定义按照文章日期降序排</span>    &#125;);  <span class="hljs-keyword">var</span> paginationDir = config.pagination_dir || <span class="hljs-string">'page'</span>;  <span class="hljs-keyword">return</span> pagination(<span class="hljs-string">''</span>, posts, &#123;    perPage: config.index_generator.per_page,    layout: [<span class="hljs-string">'index'</span>, <span class="hljs-string">'archive'</span>],    format: paginationDir + <span class="hljs-string">'/%d/'</span>,    data: &#123;      __index: <span class="hljs-literal">true</span>    &#125;  &#125;);&#125;;</code></pre><p>打开文章添加top字段,设置数值，数值越大文章越靠前：    </p><pre><code class="hljs yaml"><span class="hljs-meta">---</span><span class="hljs-attr">layout:</span> <span class="hljs-string">layout</span><span class="hljs-attr">title:</span> <span class="hljs-string">标签1</span><span class="hljs-attr">date:</span> <span class="hljs-number">2017</span><span class="hljs-number">-08</span><span class="hljs-number">-18</span> <span class="hljs-number">15</span><span class="hljs-string">:41:18</span><span class="hljs-attr">tags:</span> <span class="hljs-string">标签1</span><span class="hljs-attr">top:</span> <span class="hljs-number">100</span><span class="hljs-meta">---</span></code></pre><h3 id="统计功能，统计功能-显示文章字数统计-阅读时长-总字数"><a href="#统计功能，统计功能-显示文章字数统计-阅读时长-总字数" class="headerlink" title="统计功能，统计功能,显示文章字数统计,阅读时长,总字数"></a>统计功能，统计功能,显示文章字数统计,阅读时长,总字数</h3><p>在站点的根目录下：<br><code>$ npm i --save hexo-wordcount</code><br>打开 themes/next/_config.yml ，搜索关键字 post_wordcount：</p><pre><code class="hljs yaml"><span class="hljs-comment"># Post wordcount display settings</span><span class="hljs-comment"># Dependencies: https://github.com/willin/hexo-wordcount</span><span class="hljs-attr">post_wordcount:</span>  <span class="hljs-attr">item_text:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment">#字数统计</span>  <span class="hljs-attr">wordcount:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment">#预览时间</span>  <span class="hljs-attr">min2read:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment">#总字数,显示在页面底部</span>  <span class="hljs-attr">totalcount:</span> <span class="hljs-literal">true</span>  <span class="hljs-attr">separated_meta:</span> <span class="hljs-literal">true</span></code></pre><h3 id="网站标题栏背景颜色"><a href="#网站标题栏背景颜色" class="headerlink" title="网站标题栏背景颜色"></a>网站标题栏背景颜色</h3><p>当使用Pisces主题时，网站标题栏背景颜色是黑色的，感觉不好看，在 <code>next/source/css/_custom</code> 目录下面专门提供了 custom.styl 供我们自定义样式的，因此也可以在 custom.styl 里面添加：    </p><pre><code class="hljs mel"><span class="hljs-comment">// Custom styles.</span>.site-meta &#123;  background: $blue; <span class="hljs-comment">//修改为自己喜欢的颜色</span>&#125;<span class="hljs-string">``</span><span class="hljs-string">`</span><span class="hljs-string">或者修改源码，在 `</span><span class="hljs-keyword">source</span>/css/_schemes/Pisces/_brand.styl<span class="hljs-string">` 中修改：</span></code></pre><p>.site-meta {<br>  padding: 20px 0;<br>  color: white;<br>  background: $blue-dodger; //修改为自己喜欢的颜色</p><p>  +tablet() {<br>    box-shadow: 0 0 16px rgba(0,0,0,0.5);<br>  }<br>  +mobile() {<br>    box-shadow: 0 0 16px rgba(0,0,0,0.5);<br>  }<br>}</p><pre><code class="hljs gams">### 修改内容区域的宽度我们用Next主题是发现在电脑上阅读文章时内容两边留的空白较多，这样在浏览代码块时经常要滚动滚动条才能阅读完整，体验不是很好，下面提供修改内容区域的宽度的方法。 NexT 对于内容的宽度的设定如下：<span class="hljs-comment">* 700px，当屏幕宽度 &lt; 1600px</span><span class="hljs-comment">* 900px，当屏幕宽度 &gt;= 1600px</span><span class="hljs-comment">* 移动设备下，宽度自适应</span>如果你需要修改内容的宽度，同样需要编辑样式文件。 在Mist和Muse风格可以用下面的方法：编辑主题的 `source/css/_variables/custom.styl` 文件，新增变量：```<span class="hljs-comment">// 修改成你期望的宽度</span><span class="hljs-meta"><span class="hljs-meta-keyword">$content</span>-desktop = 700px</span><span class="hljs-comment">// 当视窗超过 1600px 后的宽度</span><span class="hljs-meta"><span class="hljs-meta-keyword">$content</span>-desktop-large = 900px</span>```当你使用Pisces风格时可以用下面的方法：</code></pre><p>header{ width: 90%; }<br>.container .main-inner { width: 90%; }<br>.content-wrap { width: calc(100% - 260px); }</p><pre><code></code></pre>]]></content>
     
     
-    <categories>
-      
-      <category>其他</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>其他</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>MarkDown教程</title>
-    <link href="/2020/06/21/business/"/>
-    <url>/2020/06/21/business/</url>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="转自菜鸟教程"><a href="#转自菜鸟教程" class="headerlink" title="转自菜鸟教程"></a>转自菜鸟教程</h3><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p># 一级标题<br>## 二级标题<br>### 三级标题<br>#### 四级标题<br>##### 五级标题<br>###### 六级标题</p><a id="more"></a><p>显示效果</p><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><p>段落没有特殊的格式，直接编写文字就好，段落的换行是使用两个以上空格加上回车。<br>AAAAAA<br>BBBBBB<br>末尾添加两个空格或使用空行换行</p><h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>Markdown 可以使用以下几种字体：<br>*斜体文本*<br>_斜体文本_<br>**粗体文本**<br>__粗体文本__<br>***粗斜体文本***<br>___粗斜体文本___</p><p>显示效果如下</p><p><em>斜体文本</em><br><em>斜体文本</em><br><strong>粗体文本</strong><br><strong>粗体文本</strong><br><strong><em>粗斜体文本</em></strong><br><strong><em>粗斜体文本</em></strong></p><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>* 第一项<br>* 第二项<br>* 第三项</p><p>+ 第一项<br>+ 第二项<br>+ 第三项</p><p>- 第一项<br>- 第二项<br>- 第三项</p><ul><li>第一项</li><li>第二项</li><li>第三项</li></ul><ul><li>第一项</li><li>第二项</li><li>第三项</li></ul><ul><li>第一项</li><li>第二项</li><li>第三项</li></ul><p>有序列表使用数字并加上 . 号来表示</p><p>1. 第一项<br>2. 第二项<br>3. 第三项<br>显示效果</p><ol><li>第一项</li><li>第二项</li><li>第三项</li></ol><h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><p>***</p><p>* * *</p><p>*****</p><p>- - -</p><p>-———<br>显示效果</p><hr><hr><hr><hr><hr><h2 id="Markdown-代码"><a href="#Markdown-代码" class="headerlink" title="Markdown 代码"></a>Markdown 代码</h2><p>如果是段落上的一个函数或片段的代码可以用反引号把它包起来（`），例如：<br>`printf()`函数<br>显示效果：<br><code>printf()</code> 函数</p><h3 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h3><p>代码区块使用 4 个空格或者一个制表符（Tab 键）。<br>‘-‘代表空格<br>—-&lt;?php<br>    echo ‘hello’;<br>    function test(){<br>        echo ‘test’;<br>    }    </p><p>显示效果</p><pre><code>&lt;?phpecho &apos;hello&apos;;function test(){    echo &apos;test&apos;;}</code></pre><p>你也可以用 ``` 包裹一段代码，并指定一种语言（也可以不指定）：<br>```javascript<br>$(document).ready(function () {<br>    alert(‘RUNOOB’);<br>});<br>```<br>显示效果    </p><pre><code class="hljs javascript">$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;    alert(<span class="hljs-string">'RUNOOB'</span>);&#125;);</code></pre>]]></content>
-    
-    
-    <categories>
-      
-      <category>其他</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>其他</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>测试文章标题</title>
-    <link href="/2020/06/21/2/"/>
-    <url>/2020/06/21/2/</url>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>测试文章内容</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>其他</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>其他</tag>
-      
-    </tags>
     
   </entry>
   
